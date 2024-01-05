@@ -27,6 +27,12 @@ npm install cors
 ```
 npm install @types/cors
 ```
+
+- **`Install country-iso`**
+```
+npm i country-iso-2-to-3
+```
+
 #
 - **`Not Detected Node Modules`**
 ```
@@ -69,6 +75,12 @@ npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
 ```
 npm install @mui/material @emotion/react @emotion/styled
 ```
+
+- **`Install nivo line chart`**
+```
+npm i @nivo/line
+```
+
 #
 - **`Not Detected Node Modules`**
 ```
