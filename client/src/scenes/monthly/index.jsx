@@ -1,10 +1,43 @@
-import React from "react";
-import { Box } from "@mui/material";
+import React, { useMemo } from "react";
+import { Box, useTheme } from "@mui/material";
 import Header from "components/Header";
 import { ResponsiveLine } from "@nivo/line";
+import { useGetSalesQuery } from "state/api";
 
 const Monthly = () => {
-  
+  const { data } = useGetSalesQuery();
+  const theme = useTheme();
+
+  const [formattedData] = useMemo(() => {
+    if (!data) return [];
+
+    const { monthlyData } = data;
+    const totalSalesLine = {
+      id: "totalSales",
+      color: theme.palette.secondary.main,
+      data: [],
+    };
+    const totalUnitsLine = {
+      id: "totalUnits",
+      color: theme.palette.secondary[600],
+      data: [],
+    };
+
+    Object.values(monthlyData).forEach(({ month, totalSales, totalUnits }) => {
+      totalSalesLine.data = [
+        ...totalSalesLine.data,
+        { x: month, y: totalSales },
+      ];
+      totalUnitsLine.data = [
+        ...totalUnitsLine.data,
+        { x: month, y: totalUnits },
+      ];
+    });
+
+    const formattedData = [totalSalesLine, totalUnitsLine];
+    return [formattedData];
+  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <Box m="1.5rem 2.5rem">
       <Header title="MONTHLY SALES" subtitle="Chart of monthlysales" />
